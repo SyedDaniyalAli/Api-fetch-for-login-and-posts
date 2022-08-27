@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:l0rem/Screens/tab_screen.dart';
 import 'package:l0rem/widget/allpost.dart';
 import 'package:l0rem/widget/auth_form.dart';
 
@@ -19,8 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   ) async {
     bool? isAuth = await _authenticate(username: email, password: password);
     if (isAuth ?? false) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (ctx) => AllPost()));
+      Navigator.of(context).pushNamed(TabsScreen.routeName);
     } else {
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Wrong Credentials')));

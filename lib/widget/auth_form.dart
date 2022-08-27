@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AuthForm extends StatefulWidget {
@@ -17,6 +18,8 @@ class _AuthFormState extends State<AuthForm> {
   var _userEmail = '';
   var _password = '';
 
+  bool _isObsecure = true;
+
   void _trySubmit() {
     final isValid = _formkey.currentState!.validate();
     FocusScope.of(context).unfocus();
@@ -35,13 +38,12 @@ class _AuthFormState extends State<AuthForm> {
       child: Column(
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 10),
-            height: 165,
-            child: FittedBox(
-              child: Image.asset('assets/images/lorem.png'),
-              fit: BoxFit.cover,
-            ),
-          ),
+              padding: const EdgeInsets.only(top: 10),
+              height: 165,
+              child: Image.asset(
+                'assets/images/lorem.png',
+                fit: BoxFit.cover,
+              )),
           Card(
             margin: const EdgeInsets.all(40),
             child: SingleChildScrollView(
@@ -78,9 +80,19 @@ class _AuthFormState extends State<AuthForm> {
                           }
                           return null;
                         },
-                        decoration:
-                            const InputDecoration(labelText: 'Password'),
-                        obscureText: true,
+                        decoration: InputDecoration(
+                            labelText: 'Password',
+                            suffix: GestureDetector(
+                              child: _isObsecure
+                                  ? const Icon(CupertinoIcons.eye_fill)
+                                  : const Icon(CupertinoIcons.eye_slash_fill),
+                              onTap: () {
+                                setState(() {
+                                  _isObsecure = !_isObsecure;
+                                });
+                              },
+                            )),
+                        obscureText: _isObsecure,
                         onSaved: (value) {
                           _password = value.toString();
                         },

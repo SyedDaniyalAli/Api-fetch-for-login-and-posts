@@ -13,7 +13,7 @@ class _NewPostState extends State<NewPost> {
   final _amountController = TextEditingController();
   final _form = GlobalKey<FormState>();
   var _newEntry = PostItem(
-    id: "",
+    id: "logedIn",
     title: "",
     description: "",
   );
@@ -24,7 +24,7 @@ class _NewPostState extends State<NewPost> {
       return;
     }
     _form.currentState!.save();
-    Provider.of<Entry>(context, listen: false).addNewPost(_newEntry);
+    Provider.of<Entry>(context, listen: false).insertNewPost(_newEntry);
     Navigator.of(context).pop();
   }
 
@@ -46,7 +46,7 @@ class _NewPostState extends State<NewPost> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Title'),
+                    decoration: const InputDecoration(labelText: 'Title'),
                     controller: _titleController,
                     onSaved: (value) {
                       _newEntry = PostItem(
@@ -62,14 +62,14 @@ class _NewPostState extends State<NewPost> {
                     },
                   ),
                   TextFormField(
-                    decoration: InputDecoration(labelText: 'Description'),
+                    decoration: const InputDecoration(labelText: 'Description'),
                     controller: _amountController,
                     keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
+                        const TextInputType.numberWithOptions(decimal: true),
                     onSaved: (value) {
                       _newEntry = PostItem(
                           id: _newEntry.id,
-                          title: _newEntry.id,
+                          title: _newEntry.title,
                           description: value.toString());
                     },
                     validator: (value) {
@@ -82,12 +82,12 @@ class _NewPostState extends State<NewPost> {
                       return null;
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   MaterialButton(
                     onPressed: _saveForm,
-                    child: Text('Add Post'),
+                    child: const Text('Add Post'),
                     textColor: Theme.of(context).textTheme.button!.color,
                     color: Theme.of(context).primaryColor,
                   )

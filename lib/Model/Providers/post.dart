@@ -23,4 +23,9 @@ class Entry with ChangeNotifier {
     _items.add(value);
     notifyListeners();
   }
+
+  void insertNewPost(PostItem value) {
+    _items.insert(0, value);
+    notifyListeners();
+  }
 }

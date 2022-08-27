@@ -33,10 +33,6 @@ class _AllPostState extends State<AllPost> {
     List<PostItem> data = Provider.of<Entry>(context, listen: true).items;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("All Posts"),
-        centerTitle: true,
-      ),
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
           : ListView.separated(
@@ -44,7 +40,13 @@ class _AllPostState extends State<AllPost> {
               itemBuilder: (ctx, i) => Padding(
                 padding: const EdgeInsets.all(4),
                 child: ListTile(
-                  title: Text(data[i].title),
+                  title: Text(
+                    data[i].title,
+                    style: TextStyle(
+                        color: data[i].id == 'logedIn'
+                            ? Theme.of(context).primaryColor
+                            : Colors.black),
+                  ),
                   subtitle: Text(
                     data[i].description,
                     style: Theme.of(context).textTheme.caption,
